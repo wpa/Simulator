@@ -24,13 +24,15 @@ public class Main {
 	public static void main(String[] args) {
 
 		Unit unit = Fund.Balanced.getUnit(UnitType.B);
-		System.out.println(unit.getPrice());
+		System.out.println(Fund.Balanced.name());
+		System.out.println(Fund.Balanced.getUnitsPrice());
 		Simulator simulator = new Simulator();
 		simulator.startRatings();
 
 		int i = 0;
 		while (i < 4) {
-			System.out.println(unit.getPrice().toString());
+			System.out.println(unit.askPrice().toString());
+			System.out.println(unit.bidPrice().toString());
 			try {
 				Thread.sleep(11 * 1000);
 			} catch (InterruptedException e) {

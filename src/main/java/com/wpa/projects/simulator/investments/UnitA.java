@@ -15,6 +15,13 @@ import java.math.BigDecimal;
  */
 public class UnitA extends Unit {
 
+	/**
+	 * @param price
+	 */
+	UnitA(BigDecimal price) {
+		super(price);
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 

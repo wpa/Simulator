@@ -25,6 +25,7 @@ public enum Fund {
 
 	private final String name;
 	private final List<Unit> unitList = new ArrayList<Unit>();
+	private volatile BigDecimal price = new BigDecimal("100.00");
 
 	Fund(String name) {
 
@@ -43,6 +44,10 @@ public enum Fund {
 		}
 
 	}
+	
+	public BigDecimal getUnitsPrice(){
+		return price;
+	}
 
 	public synchronized void releaseUnit(Unit unit) {
 
@@ -54,17 +59,18 @@ public enum Fund {
 
 			unit.rate(priceChange);
 		}
+		price = price.add(priceChange);
 
 	}
 
 	private synchronized Unit getUnitA() {
-		Unit unitA = new UnitA();
+		Unit unitA = new UnitA(price);
 		unitList.add(unitA);
 		return unitA;
 	}
 
 	private synchronized Unit getUnitB() {
-		Unit unitB = new UnitB();
+		Unit unitB = new UnitB(price);
 		unitList.add(unitB);
 		return unitB;
 	}

@@ -15,23 +15,20 @@ import java.math.BigDecimal;
  */
 public abstract class Unit {
 
-	private BigDecimal price = new BigDecimal("100.00");
+	private volatile BigDecimal price;
 	final BigDecimal PERCENT_OF_COMMISSION = new BigDecimal("2");
 
-	Unit() {
+	Unit(BigDecimal price) {
+		this.price = price;
 
 	}
 
-	public BigDecimal getPrice() {
-		return price;
-	}
-
-	final BigDecimal askPrice() {
+	final public BigDecimal askPrice() {
 		return askCommission(price);
 
 	}
 
-	final BigDecimal bidPrice() {
+	final public BigDecimal bidPrice() {
 		return bidCommission(price);
 	}
 
