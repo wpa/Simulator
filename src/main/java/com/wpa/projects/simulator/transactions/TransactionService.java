@@ -28,18 +28,18 @@ public class TransactionService extends Observable {
 
 	}
 
-	public synchronized void bid(Salable seller, Collection<Unit> unitsToSale,
-			Fund fund) {
+	public synchronized void bid(Salable seller, Collection<Unit> unitsToSale) {
 
 		BigDecimal amount = new BigDecimal("0.00");
 		Transaction transaction = new Transaction();
+		transaction.activate();
 		for (Unit unit : unitsToSale) {
 			amount = amount.add(unit.bidPrice());
-			fund.releaseUnit(unit, transaction);
-
+			unit.getFund().releaseUnit(unit, transaction);
 		}
 		seller.getTradingRegister().removeAll(unitsToSale);
 		seller.credit(amount);
+		transaction.deactivate();
 		setChanged();
 		notifyObservers();
 
@@ -50,9 +50,12 @@ public class TransactionService extends Observable {
 
 		BigDecimal price = new BigDecimal("0.00");
 		Transaction transaction = new Transaction();
+		transaction.activate();
 		Collection<Unit> unitsToBuy = new ArrayList<Unit>();
-		for (int i = 1; i >= quantity; i++) {
-
+		for (int i = 1; i <= quantity; i++) {
+			Unit unit = fund.getUnit(unitType, transaction);
+			price = price.add(unit.askPrice());
+			unitsToBuy.add(unit);
 		}
 		if (customer.liability(price)) {
 
@@ -60,6 +63,7 @@ public class TransactionService extends Observable {
 		} else {
 			fund.releaseUnits(unitsToBuy, transaction);
 		}
+		transaction.deactivate();
 		setChanged();
 		notifyObservers();
 

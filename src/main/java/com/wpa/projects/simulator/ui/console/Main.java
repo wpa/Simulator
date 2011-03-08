@@ -13,10 +13,14 @@ import java.util.Collection;
 import java.util.Observer;
 
 import com.wpa.projects.simulator.Simulator;
+import com.wpa.projects.simulator.assets.Wallet;
+import com.wpa.projects.simulator.assets.WalletProvider;
 import com.wpa.projects.simulator.investments.Fund;
 import com.wpa.projects.simulator.investments.Unit;
 import com.wpa.projects.simulator.investments.Unit.UnitType;
+import com.wpa.projects.simulator.transactions.TransactionServiceProvider;
 import com.wpa.projects.simulator.ui.RatingHandler;
+import com.wpa.projects.simulator.ui.TransactionHandler;
 
 /**
  * 
@@ -29,26 +33,27 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 
-		//Unit unit = Fund.Balanced.getUnit(UnitType.B);
 		Simulator simulator = new Simulator();
 		RatingHandler ratingHandler = new RatingHandler();
+		TransactionHandler transactionHandler = new TransactionHandler();
 		Collection<Observer> ratingListeners = new ArrayList<Observer>();
 		ratingListeners.add(ratingHandler);
-		simulator.registerRatingListeners(ratingListeners);
-		simulator.startRatings();
+		Collection<Observer> transactionListeners = new ArrayList<Observer>();
+		transactionListeners.add(transactionHandler);
 
-		int i = 0;
-		while (i < 4) {
-//			System.out.println(unit.askPrice().toString());
-//			System.out.println(unit.bidPrice().toString());
-			try {
-				Thread.sleep(11 * 1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			i++;
-		}
+		simulator.registerRatingListeners(ratingListeners);
+		simulator.registerTransactionListeners(transactionListeners);
+		simulator.startRatings();
+		Wallet wallet = WalletProvider.getWallet();
+
+		simulator.getTransactionService().ask(wallet, 2, Fund.Balanced,
+				UnitType.A);
+		System.out.println(wallet.getTradingRegister());
+		System.out.println(wallet.getAvalilableCash());
+		
+//		Runtime.getRuntime().addShutdownHook(new Thread() {
+//		    public void run() { System.out.println("Shoutdown");; }
+//		});
 
 	}
 

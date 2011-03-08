@@ -11,6 +11,7 @@ import java.util.Collection;
 import java.util.Observer;
 
 import com.wpa.projects.simulator.rating.RatingProvider;
+import com.wpa.projects.simulator.transactions.TransactionService;
 import com.wpa.projects.simulator.transactions.TransactionServiceProvider;
 
 /**
@@ -26,6 +27,10 @@ public class Simulator {
 
 		ratingProvider = new RatingProvider(10);
 		transactionsProvider = new TransactionServiceProvider();
+	}
+
+	public TransactionService getTransactionService() {
+		return transactionsProvider.getTransactionService();
 	}
 
 	public void startRatings() {

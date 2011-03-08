@@ -34,6 +34,10 @@ public abstract class Unit {
 		return bidCommission(price);
 	}
 
+	public Fund getFund() {
+		return fund;
+	}
+
 	final synchronized void rate(BigDecimal priceChange) {
 
 		if (price.add(priceChange).intValue() > 0) {
