@@ -7,6 +7,8 @@
 
 package com.wpa.projects.simulator.transactions;
 
+import java.util.Observer;
+
 /**
  * 
  *
@@ -15,12 +17,22 @@ public class TransactionServiceProvider {
 
 	private final TransactionService transactionService = new TransactionService();
 
-	private TransactionServiceProvider() {
+	public TransactionServiceProvider() {
 
 	}
 
 	public TransactionService getTransactionService() {
 		return transactionService;
+	}
+
+	public void registerListener(Observer observer) {
+		transactionService.addObserver(observer);
+
+	}
+
+	public void unregisterListener(Observer observer) {
+		transactionService.deleteObserver(observer);
+
 	}
 
 }

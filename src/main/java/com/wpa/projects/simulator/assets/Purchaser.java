@@ -7,10 +7,14 @@
 
 package com.wpa.projects.simulator.assets;
 
+import java.math.BigDecimal;
+
 /**
  * 
  *
  */
-public interface Purchaser {
+public interface Purchaser extends Trader {
+
+	public boolean liability(BigDecimal amount);
 
 }

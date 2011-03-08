@@ -18,8 +18,8 @@ public class UnitA extends Unit {
 	/**
 	 * @param price
 	 */
-	UnitA(BigDecimal price) {
-		super(price);
+	UnitA(BigDecimal price, Fund fund) {
+		super(price, fund);
 	}
 
 	/*

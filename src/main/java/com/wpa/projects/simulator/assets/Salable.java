@@ -7,10 +7,15 @@
 
 package com.wpa.projects.simulator.assets;
 
+import java.math.BigDecimal;
+
+
 /**
  * 
  *
  */
-public interface Salable {
+public interface Salable extends Trader {
+
+	public void credit(BigDecimal amount);
 
 }

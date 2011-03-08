@@ -7,20 +7,22 @@
 
 package com.wpa.projects.simulator.rating;
 
-import com.wpa.projects.simulator.investments.RatingHandler;
+import java.util.Observable;
+
+import com.wpa.projects.simulator.investments.RatingHelper;
 
 /**
  * 
  *
  */
-public class Rating implements Runnable {
+public class Rating  extends Observable implements Runnable {
 
 	private final Integer ratingInterval;
-	private final RatingHandler ratingHandler;
+	private final RatingHelper ratingHandler;
 
-	public Rating(RatingStrategy strategy, Integer ratingInterval) {
+	   Rating(RatingStrategy strategy, Integer ratingInterval) {
 		this.ratingInterval = ratingInterval;
-		this.ratingHandler = new RatingHandler(strategy);
+		this.ratingHandler = new RatingHelper(strategy);
 
 	}
 
@@ -37,6 +39,8 @@ public class Rating implements Runnable {
 			//Endless loop
 				Thread.sleep(ratingInterval * 1000);
 				ratingHandler.rate();
+				setChanged();
+				notifyObservers();
 			}
 
 		} catch (InterruptedException e) {

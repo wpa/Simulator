@@ -17,9 +17,11 @@ public abstract class Unit {
 
 	private volatile BigDecimal price;
 	final BigDecimal PERCENT_OF_COMMISSION = new BigDecimal("2");
+	private final Fund fund;
 
-	Unit(BigDecimal price) {
+	Unit(BigDecimal price, Fund fund) {
 		this.price = price;
+		this.fund = fund;
 
 	}
 

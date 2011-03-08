@@ -2,9 +2,11 @@ package com.wpa.projects.simulator.investments;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import com.wpa.projects.simulator.investments.Unit.UnitType;
+import com.wpa.projects.simulator.transactions.TransactionService.Transaction;
 
 /**
  * Copyright by 2011
@@ -32,26 +34,53 @@ public enum Fund {
 		this.name = name;
 	}
 
-	public Unit getUnit(UnitType unitType) {
+	public Unit getUnit(UnitType unitType, Transaction transaction) {
 
-		switch (unitType) {
-		case A:
-			return getUnitA();
-		case B:
-			return getUnitB();
-		default:
-			return null;
+		if (transaction.isTransactionActive()) {
+			switch (unitType) {
+			case A:
+				return getUnitA();
+			case B:
+				return getUnitB();
+			default:
+				return null;
+			}
+
+		} else {
+			throw new IllegalStateException("Transaction is not active");
 		}
-
 	}
-	
-	public BigDecimal getUnitsPrice(){
+
+	public BigDecimal getUnitsPrice() {
 		return price;
 	}
 
-	public synchronized void releaseUnit(Unit unit) {
+	public Integer getSelledUnitQuantity() {
+		return unitList.size();
+	}
 
-		unitList.remove(unit);
+	public synchronized void releaseUnits(Collection<Unit> units,
+			Transaction transaction) {
+
+		if (transaction.isTransactionActive()) {
+
+			unitList.removeAll(units);
+		} else {
+			throw new IllegalStateException("Transaction is not active");
+		}
+	}
+
+	public synchronized void releaseUnit(Unit unit, Transaction transaction) {
+		if (transaction.isTransactionActive()) {
+
+			unitList.remove(unit);
+		} else {
+			throw new IllegalStateException("Transaction is not active");
+		}
+	}
+
+	public String getName() {
+		return name;
 	}
 
 	synchronized void rateUnits(BigDecimal priceChange) {
@@ -63,14 +92,19 @@ public enum Fund {
 
 	}
 
+	synchronized void unmarshallUnits(Collection<Unit> units) {
+		unitList.addAll(units);
+
+	}
+
 	private synchronized Unit getUnitA() {
-		Unit unitA = new UnitA(price);
+		Unit unitA = new UnitA(price, this);
 		unitList.add(unitA);
 		return unitA;
 	}
 
 	private synchronized Unit getUnitB() {
-		Unit unitB = new UnitB(price);
+		Unit unitB = new UnitB(price, this);
 		unitList.add(unitB);
 		return unitB;
 	}

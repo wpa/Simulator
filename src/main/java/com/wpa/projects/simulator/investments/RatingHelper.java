@@ -13,11 +13,11 @@ import com.wpa.projects.simulator.rating.RatingStrategy;
  * 
  *
  */
-public class RatingHandler {
+public class RatingHelper {
 
 	private final RatingStrategy strategy;
 
-	public RatingHandler(RatingStrategy strategy) {
+	public RatingHelper(RatingStrategy strategy) {
 
 		this.strategy = strategy;
 	}
