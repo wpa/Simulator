@@ -9,15 +9,29 @@ package com.wpa.projects.simulator.investments;
 
 import java.math.BigDecimal;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlEnum;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
+
 /**
  * 
  *
  */
+@XmlRootElement
+@XmlSeeAlso( { UnitA.class, UnitB.class })
 public abstract class Unit {
 
 	private volatile BigDecimal price;
 	final BigDecimal PERCENT_OF_COMMISSION = new BigDecimal("2");
+	@XmlElement
 	private final Fund fund;
+
+	public Unit() {
+
+		fund = null;
+
+	}
 
 	Unit(BigDecimal price, Fund fund) {
 		this.price = price;
@@ -55,6 +69,7 @@ public abstract class Unit {
 
 	abstract BigDecimal bidCommission(BigDecimal price);
 
+	@XmlEnum
 	public enum UnitType {
 		A, B;
 	}

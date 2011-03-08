@@ -7,11 +7,24 @@
 
 package com.wpa.projects.simulator.assets;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.util.Collection;
 
+import javax.naming.spi.ObjectFactory;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+
+import com.wpa.projects.simulator.investments.Fund;
 import com.wpa.projects.simulator.investments.Unit;
-import com.wpa.projects.simulator.model.WalletUnmarshaller;
+import com.wpa.projects.simulator.investments.Unit.UnitType;
 
 /**
  * 
@@ -19,27 +32,72 @@ import com.wpa.projects.simulator.model.WalletUnmarshaller;
  */
 public class WalletProvider {
 
+	private static String FILENAME = "wallet.xml";
+
 	public static Wallet getWallet() {
 		Wallet wallet;
-		
+		File file = new File(FILENAME);
 
-		if (true) {
-			wallet = new Wallet(new BigDecimal("1000.00"));
+		if (file.exists()) {
+			wallet = unmarshallWallet();
 		} else {
-			WalletUnmarshaller walletUnmarshaller = new WalletUnmarshaller();
-			wallet = walletUnmarshaller.unmarshallWallet();
-			Collection<Unit> marshalledUnits = wallet.getTradingRegister();
-			for (Unit unit : marshalledUnits) {
-				// XXX implement unmarshall
-			}
+			wallet = new Wallet(new BigDecimal("1000.00"));
+
+			// Collection<Unit> marshalledUnits = wallet.getTradingRegister();
+			// for (Unit unit : marshalledUnits) {
+			// // XXX implement unmarshall
+			// }
 		}
-		
+
 		return wallet;
 	}
 
+	@SuppressWarnings("restriction")
 	public static void marshallWallet(Wallet wallet) {
 
+		JAXBContext context;
+		OutputStream outputStream = null;
+		try {
+			context = getJXBContext();
+			Marshaller marshaller = context.createMarshaller();
+
+			marshaller.setProperty("jaxb.formatted.output", true);
+			outputStream = new FileOutputStream(FILENAME);
+			marshaller.marshal(wallet, outputStream);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			try {
+				outputStream.close();
+			} catch (IOException e) {
+				// Just ignore
+			}
+		}
+
 	}
-	
-	
+
+	@SuppressWarnings("restriction")
+	private static Wallet unmarshallWallet() {
+		JAXBContext context;
+		InputStream inputStream = null;
+		Wallet wallet = null;
+
+		try {
+			context = getJXBContext();
+			Unmarshaller unmarshaller = context.createUnmarshaller();
+			inputStream = new FileInputStream(FILENAME);
+			wallet = (Wallet) unmarshaller.unmarshal(inputStream);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		return wallet;
+	}
+
+	@SuppressWarnings("restriction")
+	private static JAXBContext getJXBContext() throws JAXBException {
+		return JAXBContext.newInstance(Wallet.class, Unit.class, Fund.class,
+				UnitType.class);
+	}
+
 }

@@ -11,16 +11,31 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.xml.bind.annotation.XmlAnyElement;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlList;
+import javax.xml.bind.annotation.XmlMixed;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import com.wpa.projects.simulator.investments.Unit;
 
 /**
  * 
  *
  */
+
+@XmlRootElement
 public class Wallet implements Salable, Purchaser {
 
+@XmlAnyElement
 	private Collection<Unit> tradingRegister = new ArrayList<Unit>();
+	 @XmlAttribute 
 	private volatile BigDecimal cash;
+
+	public Wallet() {
+
+	}
 
 	/**
 	 * @param bigDecimal

@@ -43,17 +43,27 @@ public class Main {
 
 		simulator.registerRatingListeners(ratingListeners);
 		simulator.registerTransactionListeners(transactionListeners);
-		simulator.startRatings();
-		Wallet wallet = WalletProvider.getWallet();
+		// simulator.startRatings();
 
-		simulator.getTransactionService().ask(wallet, 2, Fund.Balanced,
-				UnitType.A);
-		System.out.println(wallet.getTradingRegister());
+		Wallet wallet = WalletProvider.getWallet();
 		System.out.println(wallet.getAvalilableCash());
-		
-//		Runtime.getRuntime().addShutdownHook(new Thread() {
-//		    public void run() { System.out.println("Shoutdown");; }
-//		});
+		System.out.println(wallet.getTradingRegister().size());
+		// WalletProvider.marshallWallet(wallet);
+		//
+		// simulator.getTransactionService().ask(wallet, 2, Fund.Balanced,
+		// UnitType.B);
+		//		
+		// simulator.getTransactionService().ask(wallet, 3, Fund.Equity,
+		// UnitType.A);
+		//		
+		// System.out.println(wallet.getTradingRegister());
+		// System.out.println(wallet.getAvalilableCash());
+
+		// Runtime.getRuntime().addShutdownHook(new Thread() {
+		// public void run() { System.out.println("Shoutdown");; }
+		// });
+
+		WalletProvider.marshallWallet(wallet);
 
 	}
 

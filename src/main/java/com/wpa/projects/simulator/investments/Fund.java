@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlEnum;
+import javax.xml.bind.annotation.XmlEnumValue;
+
 import com.wpa.projects.simulator.investments.Unit.UnitType;
 import com.wpa.projects.simulator.transactions.TransactionService.Transaction;
 
@@ -19,11 +22,19 @@ import com.wpa.projects.simulator.transactions.TransactionService.Transaction;
  * 
  *
  */
+@XmlEnum
 public enum Fund {
 
-	// TODO add names of funds by properties
-	Money_Market("Money_Market"), Bond("Bond"), Stable_Growth("Stable Growth"), Balanced(
-			"Balanced"), Equity("Equity");
+	@XmlEnumValue("Money_Market")
+	Money_Market("Money_Market"),
+	@XmlEnumValue("Bond")
+	Bond("Bond"), 
+	@XmlEnumValue("Stable Growth")
+	Stable_Growth("Stable Growth"),
+	@XmlEnumValue("Balanced")
+	Balanced("Balanced"), 
+	@XmlEnumValue("Equity")
+	Equity("Equity");
 
 	private final String name;
 	private final List<Unit> unitList = new ArrayList<Unit>();

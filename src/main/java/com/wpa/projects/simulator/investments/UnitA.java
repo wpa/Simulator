@@ -9,11 +9,18 @@ package com.wpa.projects.simulator.investments;
 
 import java.math.BigDecimal;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * 
  *
  */
+@XmlRootElement
 public class UnitA extends Unit {
+	
+	public UnitA(){
+		
+	}
 
 	/**
 	 * @param price
