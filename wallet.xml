@@ -1,7 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<wallet>
-	<assets>
-		<cash></cash>
-		<units></units>
-	</assets>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<wallet cash="666.00">
+    <unitB>
+        <fund>Balanced</fund>
+    </unitB>
+    <unitB>
+        <fund>Balanced</fund>
+    </unitB>
+    <unitA>
+        <fund>Equity</fund>
+    </unitA>
+    <unitA>
+        <fund>Equity</fund>
+    </unitA>
 </wallet>
