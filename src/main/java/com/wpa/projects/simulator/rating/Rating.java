@@ -36,11 +36,11 @@ public class Rating  extends Observable implements Runnable {
 
 		try {
 			while (true) {
-			//Endless loop
-				Thread.sleep(ratingInterval * 1000);
+			//Endless loop			
 				ratingHandler.rate();
 				setChanged();
 				notifyObservers();
+				Thread.sleep(ratingInterval * 1000);
 			}
 
 		} catch (InterruptedException e) {
