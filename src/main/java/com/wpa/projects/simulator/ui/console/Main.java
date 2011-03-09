@@ -43,11 +43,11 @@ public class Main {
 
 		simulator.registerRatingListeners(ratingListeners);
 		simulator.registerTransactionListeners(transactionListeners);
-		// simulator.startRatings();
+		 simulator.startRatings();
 
-		Wallet wallet = WalletProvider.getWallet();
-		System.out.println(wallet.getAvalilableCash());
-		System.out.println(wallet.getTradingRegister().size());
+		//Wallet wallet = WalletProvider.getWallet();
+		//System.out.println(wallet.getAvalilableCash());
+		//System.out.println(wallet.getTradingRegister().size());
 		// WalletProvider.marshallWallet(wallet);
 		//
 		// simulator.getTransactionService().ask(wallet, 2, Fund.Balanced,
@@ -63,7 +63,7 @@ public class Main {
 		// public void run() { System.out.println("Shoutdown");; }
 		// });
 
-		WalletProvider.marshallWallet(wallet);
+		//WalletProvider.marshallWallet(wallet);
 
 	}
 

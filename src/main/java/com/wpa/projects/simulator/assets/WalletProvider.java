@@ -40,13 +40,9 @@ public class WalletProvider {
 
 		if (file.exists()) {
 			wallet = unmarshallWallet();
+			synchronizeRegisters(wallet);
 		} else {
 			wallet = new Wallet(new BigDecimal("1000.00"));
-
-			// Collection<Unit> marshalledUnits = wallet.getTradingRegister();
-			// for (Unit unit : marshalledUnits) {
-			// // XXX implement unmarshall
-			// }
 		}
 
 		return wallet;
@@ -72,6 +68,16 @@ public class WalletProvider {
 			} catch (IOException e) {
 				// Just ignore
 			}
+		}
+
+	}
+
+	private static void synchronizeRegisters(Trader trader) {
+		Collection<Unit> marshalledUnits = trader.getTradingRegister();
+		System.err.println(marshalledUnits.size());
+	for (Object unit : marshalledUnits) {
+			
+			System.out.println(unit.getClass().getCanonicalName());
 		}
 
 	}

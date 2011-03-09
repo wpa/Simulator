@@ -49,8 +49,13 @@ public class RandomRatingStrategy implements RatingStrategy {
 		}
 	}
 
+	// FIXME !!! check it
 	private BigDecimal generateRandom(BigDecimal begin, BigDecimal end) {
 
-		return new BigDecimal("-1.00");
+		Double Min = begin.doubleValue();
+		Double Max = end.doubleValue();
+		Double random = Min + (Math.random() * ((Max - Min) + 1));
+
+		return new BigDecimal(random).setScale(2, BigDecimal.ROUND_HALF_UP);
 	}
 }
