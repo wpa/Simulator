@@ -4,7 +4,7 @@
 
   <groupId>com.wpa.projects</groupId>
   <artifactId>simulator</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.2.20a</version>
   <packaging>jar</packaging>
 
   <name>simulator</name>
