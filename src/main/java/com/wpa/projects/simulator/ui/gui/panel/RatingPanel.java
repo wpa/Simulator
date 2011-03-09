@@ -43,7 +43,7 @@ public class RatingPanel extends JPanel implements Observer {
 
 	public RatingPanel() {
 
-		Font font = new Font("Serif", Font.BOLD, 15);
+		Font font = new Font("Serif", Font.BOLD, 13);
 		money_Market.setFont(font);
 		bond.setFont(font);
 		stable_Growth.setFont(font);

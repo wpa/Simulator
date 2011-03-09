@@ -15,9 +15,8 @@ import java.util.Properties;
 import com.wpa.projects.simulator.Simulator;
 import com.wpa.projects.simulator.assets.Wallet;
 import com.wpa.projects.simulator.assets.WalletProvider;
-import com.wpa.projects.simulator.transactions.TransactionService;
-import com.wpa.projects.simulator.transactions.TransactionServiceProvider;
 import com.wpa.projects.simulator.ui.console.SimulatorCLI;
+import com.wpa.projects.simulator.ui.gui.dialog.DialogWindowProvider;
 import com.wpa.projects.simulator.ui.gui.main.SimulatorGUI;
 import com.wpa.projects.simulator.ui.gui.menu.SimulatorMenu;
 import com.wpa.projects.simulator.ui.gui.menu.SimulatorMenuBuilder;
@@ -35,8 +34,8 @@ public class SimulatorUIMainHelper {
 
 	public void run() {
 
-		Simulator simulator = new Simulator();
-		Wallet wallet = WalletProvider.getWallet();
+		 Simulator simulator = new Simulator();
+		 Wallet wallet = WalletProvider.getWallet();
 
 		if (Boolean.parseBoolean(properties.getProperty(simulator.getClass()
 				.getSimpleName()
@@ -48,15 +47,18 @@ public class SimulatorUIMainHelper {
 
 	}
 
-	private void startGUI(Simulator simulator, Wallet wallet) {
+	private void startGUI(final Simulator simulator, final Wallet wallet) {
 
-		SimulatorGUI mainFrame = new SimulatorGUI(simulator);
+		final SimulatorGUI mainFrame = new SimulatorGUI(simulator);
 
 		ActionListener actionListener = new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("asd");
+
+				DialogWindowProvider.getDialogWindow(e.getActionCommand(),
+						mainFrame, wallet, simulator.getTransactionService())
+						.setVisible(true);
 
 			}
 		};
@@ -72,8 +74,8 @@ public class SimulatorUIMainHelper {
 		simulator.registerRatingListener(ratingPanel);
 		simulator.registerTransactionListener(walletPanel);
 
-		mainFrame.add(ratingPanel, BorderLayout.EAST);
-		mainFrame.add(walletPanel, BorderLayout.CENTER);
+		mainFrame.add(ratingPanel, BorderLayout.NORTH);
+		mainFrame.add(walletPanel, BorderLayout.EAST);
 
 		SimulatorSwing.run(mainFrame, -1, -1);
 		simulator.startRatings();
