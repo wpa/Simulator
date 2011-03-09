@@ -26,15 +26,15 @@ import com.wpa.projects.simulator.transactions.TransactionService.Transaction;
 public enum Fund {
 
 	@XmlEnumValue("Money_Market")
-	Money_Market("Money_Market"),
+	Money_Market("Ryneku pieniężnego"),
 	@XmlEnumValue("Bond")
-	Bond("Bond"), 
+	Bond("Obligacji"), 
 	@XmlEnumValue("Stable Growth")
-	Stable_Growth("Stable Growth"),
+	Stable_Growth("Stabilnego wzrostu"),
 	@XmlEnumValue("Balanced")
-	Balanced("Balanced"), 
+	Balanced("Zrównoważony"), 
 	@XmlEnumValue("Equity")
-	Equity("Equity");
+	Equity("Akcji");
 
 	private final String name;
 	private final List<Unit> unitList = new ArrayList<Unit>();

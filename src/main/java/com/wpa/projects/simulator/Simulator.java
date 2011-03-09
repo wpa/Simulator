@@ -39,21 +39,13 @@ public class Simulator {
 		ratingThread.start();
 	}
 
-	public void registerRatingListeners(Collection<Observer> collectionObservers) {
+	public void registerRatingListener(Observer observer) {
 
-		for (Observer observer : collectionObservers) {
-			ratingProvider.getRating().addObserver(observer);
-		}
-
+		ratingProvider.getRating().addObserver(observer);
 	}
 
-	public void registerTransactionListeners(
-			Collection<Observer> collectionObservers) {
-
-		for (Observer observer : collectionObservers) {
-			transactionsProvider.getTransactionService().addObserver(observer);
-		}
-
+	public void registerTransactionListener(Observer observer) {
+		transactionsProvider.getTransactionService().addObserver(observer);
 	}
 
 }
