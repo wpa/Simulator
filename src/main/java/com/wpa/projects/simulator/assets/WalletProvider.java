@@ -14,15 +14,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collection;
-
-import javax.naming.spi.ObjectFactory;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import com.sun.org.apache.xerces.internal.dom.ElementNSImpl;
 import com.wpa.projects.simulator.investments.Fund;
+import com.wpa.projects.simulator.investments.FundUnitUnmarshaller;
 import com.wpa.projects.simulator.investments.Unit;
 import com.wpa.projects.simulator.investments.Unit.UnitType;
 
@@ -30,6 +31,7 @@ import com.wpa.projects.simulator.investments.Unit.UnitType;
  * 
  *
  */
+@SuppressWarnings("restriction")
 public class WalletProvider {
 
 	private static String FILENAME = "wallet.xml";
@@ -40,7 +42,6 @@ public class WalletProvider {
 
 		if (file.exists()) {
 			wallet = unmarshallWallet();
-			synchronizeRegisters(wallet);
 		} else {
 			wallet = new Wallet(new BigDecimal("1000.00"));
 		}
@@ -56,7 +57,6 @@ public class WalletProvider {
 		try {
 			context = getJXBContext();
 			Marshaller marshaller = context.createMarshaller();
-
 			marshaller.setProperty("jaxb.formatted.output", true);
 			outputStream = new FileOutputStream(FILENAME);
 			marshaller.marshal(wallet, outputStream);
@@ -72,16 +72,6 @@ public class WalletProvider {
 
 	}
 
-	private static void synchronizeRegisters(Trader trader) {
-		Collection<Unit> marshalledUnits = trader.getTradingRegister();
-		System.err.println(marshalledUnits.size());
-	for (Object unit : marshalledUnits) {
-			
-			System.out.println(unit.getClass().getCanonicalName());
-		}
-
-	}
-
 	@SuppressWarnings("restriction")
 	private static Wallet unmarshallWallet() {
 		JAXBContext context;
@@ -92,7 +82,23 @@ public class WalletProvider {
 			context = getJXBContext();
 			Unmarshaller unmarshaller = context.createUnmarshaller();
 			inputStream = new FileInputStream(FILENAME);
-			wallet = (Wallet) unmarshaller.unmarshal(inputStream);
+			Wallet unmarshalledWallet = (Wallet) unmarshaller
+					.unmarshal(inputStream);
+			wallet = new Wallet(unmarshalledWallet.getAvalilableCash());
+
+			Collection unmarshalledRegister = unmarshalledWallet
+					.getTradingRegister();
+			Collection<Unit> unitUnmarshalled = new ArrayList<Unit>();
+			for (Object object : unmarshalledRegister) {
+				ElementNSImpl elm = (ElementNSImpl) object;
+
+				String fundName = elm.getAttribute("fund");
+				String unitType = elm.getLocalName();
+				unitUnmarshalled.add(FundUnitUnmarshaller.unmarshallUnit(
+						fundName, unitType));
+				wallet.getTradingRegister().addAll(unitUnmarshalled);
+			}
+
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

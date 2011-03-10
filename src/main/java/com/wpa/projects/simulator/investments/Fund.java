@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlEnumValue;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import com.wpa.projects.simulator.investments.Unit.UnitType;
 import com.wpa.projects.simulator.transactions.TransactionService.Transaction;
@@ -22,18 +23,16 @@ import com.wpa.projects.simulator.transactions.TransactionService.Transaction;
  * 
  *
  */
+@SuppressWarnings("restriction")
+@XmlRootElement
 @XmlEnum
 public enum Fund {
 
 	@XmlEnumValue("Money_Market")
-	Money_Market("Ryneku pieniężnego"),
-	@XmlEnumValue("Bond")
-	Bond("Obligacji"), 
-	@XmlEnumValue("Stable Growth")
-	Stable_Growth("Stabilnego wzrostu"),
-	@XmlEnumValue("Balanced")
-	Balanced("Zrównoważony"), 
-	@XmlEnumValue("Equity")
+	Money_Market("Ryneku pieniężnego"), @XmlEnumValue("Bond")
+	Bond("Obligacji"), @XmlEnumValue("Stable Growth")
+	Stable_Growth("Stabilnego wzrostu"), @XmlEnumValue("Balanced")
+	Balanced("Zrównoważony"), @XmlEnumValue("Equity")
 	Equity("Akcji");
 
 	private final String name;
@@ -93,11 +92,23 @@ public enum Fund {
 	public String getName() {
 		return name;
 	}
-	
 
 	@Override
 	public String toString() {
 		return getName();
+	}
+
+	Unit unmarshallUnit(UnitType unitType) {
+
+		switch (unitType) {
+		case A:
+			return getUnitA();
+		case B:
+			return getUnitB();
+		default:
+			return null;
+		}
+
 	}
 
 	synchronized void rateUnits(BigDecimal priceChange) {

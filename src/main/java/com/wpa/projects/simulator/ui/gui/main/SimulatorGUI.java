@@ -36,6 +36,7 @@ public class SimulatorGUI extends JFrame {
 
 		this.simulator = simulator;
 		setLayout(new BorderLayout());
+		setResizable(false);
 	}
 
 	public void addSimulatorMenuBar(JMenuBar menu) {

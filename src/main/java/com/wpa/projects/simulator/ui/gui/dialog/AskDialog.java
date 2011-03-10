@@ -41,8 +41,8 @@ public class AskDialog extends TraderDialog {
 	private static final String TYPE_B = "unitB";
 	private final Frame frame;
 
-	private volatile Fund selectedFund;
-	private volatile UnitType unitType;
+	private Fund selectedFund;
+	private UnitType unitType;
 
 	public AskDialog(Frame frame, Wallet wallet,
 			TransactionService transactionService) {
@@ -112,8 +112,8 @@ public class AskDialog extends TraderDialog {
 
 				if (!quantity.getText().isEmpty()) {
 					Integer value = Integer.parseInt(quantity.getText());
-					if (value > 0 && selectedFund != null && unitType != null
-							&& value < 1000) {
+					if ((value > 0) && (selectedFund != null) && (unitType != null)
+							&& (value < 1000)) {
 						boolean ok = transactionService.ask(wallet, value,
 								selectedFund, unitType);
 						if (ok) {

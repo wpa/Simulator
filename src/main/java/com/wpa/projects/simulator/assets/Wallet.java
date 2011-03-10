@@ -13,9 +13,6 @@ import java.util.Collection;
 
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlList;
-import javax.xml.bind.annotation.XmlMixed;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.wpa.projects.simulator.investments.Unit;
@@ -25,12 +22,13 @@ import com.wpa.projects.simulator.investments.Unit;
  *
  */
 
+@SuppressWarnings("restriction")
 @XmlRootElement
 public class Wallet implements Salable, Purchaser {
 
-@XmlAnyElement
+	@XmlAnyElement
 	private Collection<Unit> tradingRegister = new ArrayList<Unit>();
-	 @XmlAttribute 
+	@XmlAttribute
 	private volatile BigDecimal cash;
 
 	public Wallet() {

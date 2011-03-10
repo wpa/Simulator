@@ -74,6 +74,7 @@ public class SimulatorUIMainHelper {
 
 		simulator.registerRatingListener(ratingPanel);
 		simulator.registerTransactionListener(walletPanel);
+		simulator.registerRatingListener(walletPanel);
 
 		mainFrame.add(ratingPanel, BorderLayout.NORTH);
 		mainFrame.add(walletPanel, BorderLayout.EAST);
@@ -96,7 +97,7 @@ public class SimulatorUIMainHelper {
 		}
 
 		public void run() {
-			// WalletProvider.marshallWallet(wallet);
+		   //WalletProvider.marshallWallet(wallet);
 			System.out.println("Stan portfela: " + wallet.getAvalilableCash());
 		}
 	};
