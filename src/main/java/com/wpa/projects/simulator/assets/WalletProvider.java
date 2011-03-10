@@ -96,8 +96,9 @@ public class WalletProvider {
 				String unitType = elm.getLocalName();
 				unitUnmarshalled.add(FundUnitUnmarshaller.unmarshallUnit(
 						fundName, unitType));
-				wallet.getTradingRegister().addAll(unitUnmarshalled);
+				
 			}
+			wallet.getTradingRegister().addAll(unitUnmarshalled);
 
 		} catch (Exception e) {
 			throw new RuntimeException(e);

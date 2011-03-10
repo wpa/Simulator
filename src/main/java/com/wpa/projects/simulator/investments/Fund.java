@@ -30,7 +30,7 @@ public enum Fund {
 
 	@XmlEnumValue("Money_Market")
 	Money_Market("Ryneku pieniężnego"), @XmlEnumValue("Bond")
-	Bond("Obligacji"), @XmlEnumValue("Stable Growth")
+	Bond("Obligacji"), @XmlEnumValue("Stable_Growth")
 	Stable_Growth("Stabilnego wzrostu"), @XmlEnumValue("Balanced")
 	Balanced("Zrównoważony"), @XmlEnumValue("Equity")
 	Equity("Akcji");

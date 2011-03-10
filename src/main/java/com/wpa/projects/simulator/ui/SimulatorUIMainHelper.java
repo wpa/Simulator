@@ -97,7 +97,7 @@ public class SimulatorUIMainHelper {
 		}
 
 		public void run() {
-		   //WalletProvider.marshallWallet(wallet);
+		   WalletProvider.marshallWallet(wallet);
 			System.out.println("Stan portfela: " + wallet.getAvalilableCash());
 		}
 	};
