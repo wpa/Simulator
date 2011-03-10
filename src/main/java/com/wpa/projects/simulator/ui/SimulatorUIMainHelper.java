@@ -34,8 +34,9 @@ public class SimulatorUIMainHelper {
 
 	public void run() {
 
-		 Simulator simulator = new Simulator();
-		 Wallet wallet = WalletProvider.getWallet();
+		Simulator simulator = new Simulator();
+		Wallet wallet = WalletProvider.getWallet();
+		Runtime.getRuntime().addShutdownHook(new SimulatorShutdownHook(wallet));
 
 		if (Boolean.parseBoolean(properties.getProperty(simulator.getClass()
 				.getSimpleName()
@@ -85,4 +86,18 @@ public class SimulatorUIMainHelper {
 		SimulatorCLI cli = new SimulatorCLI(simulator);
 
 	}
+
+	private class SimulatorShutdownHook extends Thread {
+
+		private final Wallet wallet;
+
+		public SimulatorShutdownHook(Wallet wallet) {
+			this.wallet = wallet;
+		}
+
+		public void run() {
+			// WalletProvider.marshallWallet(wallet);
+			System.out.println("Stan portfela: " + wallet.getAvalilableCash());
+		}
+	};
 }

@@ -69,7 +69,8 @@ public class AskDialog extends TraderDialog {
 		JLabel typeLabel = new JLabel("Typ jednostki");
 		final JTextField quantity = new JTextField(5);
 		quantity.setText("0");
-		quantity.setToolTipText("Wprowadź nieujemną całkowitą liczbę");
+		quantity
+				.setToolTipText("Wprowadź nieujemną całkowitą liczbę jednostek mniejszą niż 1000");
 		quantity.setSize(200, 50);
 		JLabel quantityLabel = new JLabel("Ilość");
 		JButton askButton = new JButton("Kup");
@@ -111,12 +112,17 @@ public class AskDialog extends TraderDialog {
 
 				if (!quantity.getText().isEmpty()) {
 					Integer value = Integer.parseInt(quantity.getText());
-					if (value > 0 && selectedFund != null && unitType != null) {
+					if (value > 0 && selectedFund != null && unitType != null
+							&& value < 1000) {
 						boolean ok = transactionService.ask(wallet, value,
 								selectedFund, unitType);
 						if (ok) {
-
-							System.out.println(wallet.getTradingRegister().size());
+							JOptionPane
+									.showMessageDialog(
+											frame,
+											"Transakcja zakupu jednostek uczestnictwa przebiegła pomyślnie",
+											"Transakcja sfinalizowana",
+											JOptionPane.INFORMATION_MESSAGE);
 						} else {
 							JOptionPane
 									.showMessageDialog(

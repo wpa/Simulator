@@ -74,7 +74,7 @@ public class WalletPanel extends JPanel implements Observer {
 		if (!wallet.getTradingRegister().isEmpty()) {
 			BigDecimal allUnitValue = new BigDecimal("0.00");
 			for (Unit unit : wallet.getTradingRegister()) {
-				allUnitValue = allUnitValue.add(unit.bidPrice());
+				allUnitValue = allUnitValue.add(unit.getFund().getUnitsPrice());
 			}
 			assets.setText(assetsAll + allUnitValue);
 		} else {
