@@ -93,6 +93,12 @@ public enum Fund {
 	public String getName() {
 		return name;
 	}
+	
+
+	@Override
+	public String toString() {
+		return getName();
+	}
 
 	synchronized void rateUnits(BigDecimal priceChange) {
 		for (Unit unit : unitList) {

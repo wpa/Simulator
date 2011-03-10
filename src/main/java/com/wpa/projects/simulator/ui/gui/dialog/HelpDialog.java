@@ -25,7 +25,10 @@ public class HelpDialog extends JDialog {
 		textArea.setEditable(false);
 		setLayout(new BorderLayout());
 		add(textArea, BorderLayout.CENTER);
+		setLocationRelativeTo(frame);
 		setSize(230, 100);
+		setResizable(false);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 
 }

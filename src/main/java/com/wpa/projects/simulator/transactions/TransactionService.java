@@ -45,12 +45,13 @@ public class TransactionService extends Observable {
 
 	}
 
-	public synchronized void ask(Purchaser customer, Integer quantity,
+	public synchronized boolean ask(Purchaser customer, Integer quantity,
 			Fund fund, UnitType unitType) {
 
 		BigDecimal price = new BigDecimal("0.00");
 		Transaction transaction = new Transaction();
 		transaction.activate();
+		boolean success = false;
 		Collection<Unit> unitsToBuy = new ArrayList<Unit>();
 		for (int i = 1; i <= quantity; i++) {
 			Unit unit = fund.getUnit(unitType, transaction);
@@ -60,12 +61,15 @@ public class TransactionService extends Observable {
 		if (customer.liability(price)) {
 
 			customer.getTradingRegister().addAll(unitsToBuy);
+			success = true;
 		} else {
 			fund.releaseUnits(unitsToBuy, transaction);
 		}
 		transaction.deactivate();
 		setChanged();
 		notifyObservers();
+
+		return success;
 
 	}
 
