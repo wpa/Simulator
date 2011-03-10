@@ -63,8 +63,8 @@ public class AskDialog extends TraderDialog {
 		}
 
 		JComboBox fundList = new JComboBox(fundString.toArray());
-		fundList.setSelectedIndex(1);
 		fundList.addActionListener(this);
+		fundList.setSelectedIndex(0);
 		JLabel fundLabel = new JLabel("Dostępne fundusze");
 		JLabel typeLabel = new JLabel("Typ jednostki");
 		final JTextField quantity = new JTextField(5);
@@ -77,7 +77,6 @@ public class AskDialog extends TraderDialog {
 		JRadioButton unitA = new JRadioButton("Typ A");
 		unitA.setActionCommand(TYPE_A);
 		unitA.addActionListener(this);
-		unitA.setSelected(true);
 		JRadioButton unitB = new JRadioButton("Typ B");
 		unitB.setActionCommand(TYPE_B);
 		unitB.addActionListener(this);
