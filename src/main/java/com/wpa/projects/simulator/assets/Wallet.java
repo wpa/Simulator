@@ -18,8 +18,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import com.wpa.projects.simulator.investments.Unit;
 
 /**
+ * Class represents user wallet
  * 
- *
  */
 
 @SuppressWarnings("restriction")

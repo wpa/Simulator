@@ -9,10 +9,9 @@ package com.wpa.projects.simulator.assets;
 
 import java.math.BigDecimal;
 
-
 /**
+ * Interface for trading. Responsible for selling.
  * 
- *
  */
 public interface Salable extends Trader {
 

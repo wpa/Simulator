@@ -12,7 +12,7 @@ import java.util.Observable;
 import com.wpa.projects.simulator.investments.RatingHelper;
 
 /**
- * 
+ * Class responsible for rating <code>Fund</code>
  *
  */
 public class Rating extends Observable implements Runnable {

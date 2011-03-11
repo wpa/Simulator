@@ -10,8 +10,8 @@ package com.wpa.projects.simulator.assets;
 import java.math.BigDecimal;
 
 /**
+ * Interface for trading. Responsible for buying.
  * 
- *
  */
 public interface Purchaser extends Trader {
 

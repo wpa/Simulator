@@ -12,8 +12,8 @@ import java.util.Collection;
 import com.wpa.projects.simulator.investments.Unit;
 
 /**
+ * Base interface for all trading transactions
  * 
- *
  */
 public interface Trader {
 
