@@ -15,14 +15,25 @@ import com.wpa.projects.simulator.investments.RatingHelper;
  * 
  *
  */
-public class Rating  extends Observable implements Runnable {
+public class Rating extends Observable implements Runnable {
 
 	private final Integer ratingInterval;
 	private final RatingHelper ratingHandler;
+	private final Integer numberOFRepeats;
+	private volatile Integer loopCounter = 1;
 
-	   Rating(RatingStrategy strategy, Integer ratingInterval) {
+	Rating(RatingStrategy strategy, Integer ratingInterval) {
 		this.ratingInterval = ratingInterval;
 		this.ratingHandler = new RatingHelper(strategy);
+		this.numberOFRepeats = null;
+
+	}
+
+	Rating(Integer numberOFRepeats, RatingStrategy strategy,
+			Integer ratingInterval) {
+		this.ratingInterval = ratingInterval;
+		this.ratingHandler = new RatingHelper(strategy);
+		this.numberOFRepeats = numberOFRepeats;
 
 	}
 
@@ -35,8 +46,8 @@ public class Rating  extends Observable implements Runnable {
 	public void run() {
 
 		try {
-			while (true) {
-			//Endless loop			
+			while (isActive()) {
+				// Endless loop
 				ratingHandler.rate();
 				setChanged();
 				notifyObservers();
@@ -47,6 +58,18 @@ public class Rating  extends Observable implements Runnable {
 			// Intentionally ignored this exception.
 		}
 
+	}
+
+	private synchronized boolean isActive() {
+
+		if (numberOFRepeats == null) {
+			return true;
+		} else if (loopCounter < numberOFRepeats) {
+			loopCounter++;
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }

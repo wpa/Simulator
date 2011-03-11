@@ -35,6 +35,7 @@ import com.wpa.projects.simulator.investments.Unit.UnitType;
 public class WalletProvider {
 
 	private static String FILENAME = "wallet.xml";
+	private static BigDecimal INITIAL_WALLET_CASH = new BigDecimal("1000.00");
 
 	public static Wallet getWallet() {
 		Wallet wallet;
@@ -43,7 +44,7 @@ public class WalletProvider {
 		if (file.exists()) {
 			wallet = unmarshallWallet();
 		} else {
-			wallet = new Wallet(new BigDecimal("1000.00"));
+			wallet = new Wallet(INITIAL_WALLET_CASH);
 		}
 
 		return wallet;
@@ -101,7 +102,7 @@ public class WalletProvider {
 			wallet.getTradingRegister().addAll(unitUnmarshalled);
 
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			return new Wallet(INITIAL_WALLET_CASH);
 		}
 
 		return wallet;

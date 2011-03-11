@@ -23,6 +23,11 @@ public class RatingProvider {
 		rating = new Rating(strategy, ratingInterval);
 	}
 
+	public RatingProvider(Integer ratingInterval, RatingStrategy strategy) {
+
+		rating = new Rating(strategy, ratingInterval);
+	}
+
 	public Rating getRating() {
 		return rating;
 	}

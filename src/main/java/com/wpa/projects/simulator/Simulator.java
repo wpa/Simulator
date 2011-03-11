@@ -7,7 +7,6 @@
 
 package com.wpa.projects.simulator;
 
-import java.util.Collection;
 import java.util.Observer;
 
 import com.wpa.projects.simulator.rating.RatingProvider;
